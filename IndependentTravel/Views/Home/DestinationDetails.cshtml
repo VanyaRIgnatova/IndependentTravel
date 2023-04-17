@@ -1,0 +1,61 @@
+﻿@model DestinationViewModel
+<h3>Edit destination</h3>
+
+<form asp-controller="Home" asp-action="EditDestination">
+    <label class="col-form-label" asp-for="Country"></label>
+    <input class="form-control" asp-for="Country"/>
+
+    <label class="col-form-label" asp-for="Town"></label>
+    <input class="form-control" asp-for="Town" />
+
+    <label class="col-form-label" asp-for="PlaceToSleep"></label>
+    <input class="form-control" asp-for="PlaceToSleep" />
+
+    <label class="col-form-label" asp-for="PlaceToEat"></label>
+    <input class="form-control" asp-for="PlaceToEat" />
+
+    <label class="col-form-label" asp-for="PictureURL"></label>
+    <input class="form-control" asp-for="PictureURL" /> 
+
+    <label class="col-form-label" asp-for="Description"></label>
+    <textarea class="form-control" asp-for="Description"></textarea>
+
+    <input hidden asp-for="Id"/>
+    <div>
+        <button class="btn btn-primary">Edit destination</button>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-modal">Delete</button>
+    </div>
+</form>
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">DELETE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure, you want to delete information about <b>@Model.Town in @Model.Country</b>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="deleteDestination()" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteDestination = () => {
+        fetch('/Home/Delete?destinationId=' + @Model.Id)
+            .then(() => redirectToIndex()
+                .catch((error) => {
+                    console.error('Error:', error);
+                }));
+    }
+
+    const redirectToIndex = () => {
+        window.location = "/Home/Index";
+    }
+</script>

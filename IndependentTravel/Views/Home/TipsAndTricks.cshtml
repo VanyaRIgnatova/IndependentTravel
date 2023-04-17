@@ -1,0 +1,33 @@
+﻿<body style="background-color:#e1ebf2">
+
+
+
+<h1 style="text-align:center;"> Some tips and tricks for your idependent travel</h1>
+<p>
+<h3> 1. Pack light </h3>
+</p>
+<p>
+<h3> 2. Plan well </h3>
+</p>
+<p>
+<h3> 3. Don't stop smiling </h3>
+</p>
+
+
+
+<button onclick="getData()" class="btn btn-info"> Where to go today ? :) </button> 
+<div id="container">  </div>
+<script>
+    const getData = () => {
+       fetch('/Home/GetRandomDestination' )
+            .then((response) => response.json())
+            .then((data) => handleRespons(data)); 
+    }
+
+    const handleRespons = (data) => {
+        var container = document.getElementById("container");
+        var randomDestination = `<h4 style="text-align:center;">${data.town} in ${data.country}</h4 ><img src="${data.picture}" class="center"/>`;
+        container.innerHTML =  randomDestination;
+    }
+</script>
+</body>

@@ -1,0 +1,93 @@
+﻿<head>
+<style>
+body {
+  background: #ebf7f4 url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfjAXdf2zg1rGm7lu6hZSuz1WGTlw67xFZhw&usqp=CAU") no-repeat right top;
+  margin-right: 200px;
+}
+</style>
+</head>
+<h1 style="text-align:center;"> Here you can find ideas and useful tips for your next trip</h1>
+ <br />
+@model DestinationViewModelList
+
+ @if (Model == null || Model.List == null || Model.List.Count == 0)
+ {
+     <h2> Don't travel now, my friend :)  </h2>
+        <div>Maybe you want to <a href="/Home/AddDestination">add a destination</a></div>
+ }
+ else
+ {
+     @foreach (var destination in Model.List)
+    {
+    <div onclick="loadDestination('@destination.Id')" id="destination-container" class="container">
+        <h4><b>@destination.Town in @destination.Country</b></h4>
+        <div class="row">
+            <div class="col-md">
+                <img src="@destination.PictureURL" class="img-thumbnail" /></div></div>
+                <div class="row">
+            <div class="col text-sm-center">
+                @destination.Description</div></div>
+        <div class="row">
+            <div class="col text-sm-center">
+               <b>Where to sleep?</b>  @destination.PlaceToSleep</div></div>
+                      <div class="row">
+            <div class="col text-sm-center">
+                <b>Where to eat?</b> @destination.PlaceToEat</div></div></div><hr />
+    }
+
+
+
+    <nav aria-label="...">
+        <ul class="pagination">
+            @if (Model.CurrentPage == 1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Home/Index?currentPage=@(Model.CurrentPage-1)" tabindex="-1">Previous</a>
+                </li>
+            }
+            @for (int i = 0; i < Model.TotalPages; i++)
+            {
+                if (i + 1 == Model.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" href="/Home/Index?currentPage=@(i + 1)">@(i + 1) <span class="sr-only">(current)</span></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" href="/Home/Index?currentPage=@(i + 1)">@(i + 1)</a></li>
+                }
+            }
+
+            @if (Model.CurrentPage == Model.TotalPages)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Home/Index?currentPage=@(Model.CurrentPage+1)">Next</a>
+                </li>
+            }
+
+        </ul>
+    </nav>
+    }
+
+    <script>
+
+    const loadDestination = (destinationId) => {
+        window.location = '/Home/DestinationDetails?destinationId=' + destinationId;
+    }
+
+</script>
+
+

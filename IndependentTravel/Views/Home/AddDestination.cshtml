@@ -1,0 +1,32 @@
+﻿@model DestinationViewModel
+<h3>Add destination</h3>
+
+<form asp-controller="Home" asp-action="AddDestination">
+    <label class="col-form-label" asp-for="Country"></label>
+    <input class="form-control" asp-for="Country"/>
+
+    <label class="col-form-label" asp-for="Town"></label>
+    <input class="form-control" asp-for="Town" />
+
+    <label class="col-form-label" asp-for="PlaceToSleep"></label>
+    <input class="form-control" asp-for="PlaceToSleep" />
+
+    <label class="col-form-label" asp-for="PlaceToEat"></label>
+    <input class="form-control" asp-for="PlaceToEat" />
+
+    <label class="col-form-label" asp-for="PictureURL"></label>
+    <input class="form-control" asp-for="PictureURL" />
+
+    <label class="col-form-label" asp-for="Description"></label>
+    <textarea class="form-control" asp-for="Description"></textarea>
+
+    <button class="btn btn-primary">Add destination</button>
+</form>
+
+<head>
+<style>
+body {
+  background: #f2eee4 ;
+}
+</style>
+</head>
